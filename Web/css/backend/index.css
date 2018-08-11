@@ -1,0 +1,26 @@
+.container, .container-fluid
+{
+	border: solid black 1px;
+}
+.bloc
+{
+	height: 60px;
+}
+[class*='col-']
+{
+	border: solid 1px red;
+}
+h1, h2, h3, h4, h5, h6 
+{
+	border: solid black 1px;
+	margin: 1%;
+	text-align: center;
+}
+div
+{
+	border: solid 1px green;
+}
+nav
+{
+	border: solid 1px aqua;
+}
