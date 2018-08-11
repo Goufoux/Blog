@@ -9,7 +9,7 @@
 	/*
 	 * author: Genarkys
 	 *
-	 * La class IndexController
+	 * La class IndexController pour le Frontend 
 	*/
 	
 	class IndexController extends BackController
