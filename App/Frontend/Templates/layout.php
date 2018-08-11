@@ -5,7 +5,7 @@
 		<link rel="stylesheet" href="../Web/css/bootstrap.min.css" />
 		<script src="../Web/js/bootstrap.min.js"></script>
 		<script src="../Web/js/jquery-3.3.1.min.js"></script>
-		<link rel="icon" type="image/x-icon" href="../Web/img/favicon.ico" />
+		<link rel="icon" type="image/x-icon" href="../Web/img/logo.png" />
 		<title><?= isset($title) ? $title : 'Genarkys' ?></title>
 	</head>
   
