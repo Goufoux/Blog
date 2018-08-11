@@ -1,5 +1,11 @@
 <?php
-
+	/*
+		Genarkys
+		ver 1.0
+		Application.php
+		
+		Coeur de l'application se charge d'instancier les contrôlleurs
+	*/
 	namespace Core;
 	
 	abstract class Application
