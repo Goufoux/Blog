@@ -18,8 +18,36 @@
 		{
 			$nbBillet = $this->app->config()->get('nbBillet');
 			$this->page->addVar('title', 'Genarkys - ' . $nbBillet . ' derniers billets');
-			$billet = $this->managers->getManagerOf('Billet')->getBillet();
+			$billet = $this->managers->getManagerOf('Billet')->getBillet(false, $nbBillet);
 			$this->page->addVar('billet', $billet);
+		}
+		
+		public function executeConnect(HTTPRequest $HTTPRequest)
+		{
+			$this->page->addVar('title', 'Genarkys - Connexion');
+			
+			/* On regarde si des identifiants sont transmis pour une connexion */
+			if($HTTPRequest->postExists('uLogin') AND $HTTPRequest->postData('uLogin'))
+			{
+				if($HTTPRequest->postExists('uPass') AND !empty($HTTPRequest->postData('uPass')))
+				{
+					$uManager = $this->managers->getManagerOf('User');
+					if($uManager->userLogin($HTTPRequest->postData('uLogin'), $HTTPRequest->postData('uPass')))
+					{
+						$this->app->HTTPResponse()->redirect('.');
+					}
+					else
+						$this->page->addVar('error', $uManager->getError());
+				}
+				else
+					$this->page->addVar('error', 'Veuillez renseigner votre Pass.');
+			}
+		}
+		
+		public function executeDeconnect(HTTPRequest $HTTPRequest)
+		{
+			session_destroy();
+			$this->app->HTTPResponse()->redirect('.');
 		}
 		
 		public function executeShowBillet(HTTPRequest $HTTPRequest)
