@@ -1,0 +1,28 @@
+h4, h5
+{
+	text-align: center;
+}
+.formAdd
+{
+	margin: 2% auto;
+}
+.formAdd input
+{
+	margin: 1% auto;
+	display: block;
+}
+.formAdd textarea
+{
+	height: 250px;
+}
+p
+{
+	text-align: center;
+}
+.billet
+{
+	margin: 5% auto;
+	background-color: rgb(33, 37, 41);
+	border-radius: 4px;
+	color: white;
+}
