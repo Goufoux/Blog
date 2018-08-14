@@ -1,26 +1,56 @@
-.container, .container-fluid
+body, html
 {
-	border: solid black 1px;
+	height: 100%;
+	background-color: rgb(33, 37, 41);
+	margin: 0;
+	padding: 0;
 }
+/* Bloc pour remplir l'espace du menu de navigation */
 .bloc
 {
 	height: 60px;
 }
-[class*='col-']
+/* Container principal */
+.container-fluid
 {
-	border: solid 1px red;
+	margin: 1% auto;
+	background-color: white;
+	padding: 2%;
 }
-h1, h2, h3, h4, h5, h6 
+.container-fluid h1
 {
-	border: solid black 1px;
-	margin: 1%;
+	text-align: center;
+	padding-bottom: 1%;
+}
+.container-fluid h3
+{
 	text-align: center;
 }
-div
+/* Affichage des billets */
+.billet
 {
-	border: solid 1px green;
+	margin: 5% auto;
+	background-color: rgb(33, 37, 41);
+	border-radius: 4px;
+	color: white;
 }
-nav
+.billet .content
 {
-	border: solid 1px aqua;
+	margin: 2% auto;
+}
+.billet ul
+{
+	text-align: right;
+	list-style-type: none;
+}
+
+/* Nav */
+.navAdmin
+{
+	text-align: center;
+}
+.navAdmin a
+{
+	text-decoration: none;
+	cursor: default;
 }
