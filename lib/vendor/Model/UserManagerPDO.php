@@ -25,7 +25,7 @@
 				}
 				else
 				{
-					$this->setError('Pass incorrect');
+					$this->setError('Le pass est incorrect.');
 					return false;
 				}
 			}
