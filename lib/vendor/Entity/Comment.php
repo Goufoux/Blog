@@ -10,6 +10,8 @@
 		protected $contenu;
 		protected $email;
 		protected $datePub;
+		protected $attachId;
+		protected $signaler;
 		
 		public function getName()
 		{
@@ -18,7 +20,7 @@
 		
 		public function getContenu()
 		{
-			return $this->getContenu;
+			return $this->contenu;
 		}
 		
 		public function getEmail()
@@ -29,6 +31,16 @@
 		public function getDatePub()
 		{
 			return $this->datePub;
+		}
+		
+		public function getAttachId()
+		{
+			return $this->attachId;
+		}
+		
+		public function getSignaler()
+		{
+			return $this->signaler;
 		}
 		
 		public function setName($name)
@@ -68,6 +80,11 @@
 				$this->email = $email;
 			}
 			else
-				$this->errors[] = "L\'email est trop petit";
+				$this->erreurs[] = "L'email est trop petit";
+		}
+		
+		public function setAttachId($id)
+		{
+			$this->attachId = $id;
 		}
 	}
