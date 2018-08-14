@@ -17,7 +17,7 @@
 				$xml = new \DOMDocument;
 				$xml->load(__DIR__.'/../../App/'.$this->app->name().'/Config/app.xml');
 				
-				$elements = $xml->getElementByTagName('define');
+				$elements = $xml->getElementsByTagName('define');
 				
 				foreach($elements as $element)
 				{
