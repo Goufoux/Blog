@@ -10,10 +10,41 @@
 </div>
 <div class="comment">
 	<h3> Liste des commentaires : </h3>
-		
+		<?php
+			if(!empty($listComment))
+			{
+				foreach($listComment as $comment)
+				{
+					?>
+						<div>
+							<span> Pseudo: <?php echo $comment->getName(); ?> </span><br />
+							<span> Date Pub: <?php echo $comment->getDatePub(); ?> </span><br />
+							<p>
+								<?php echo nl2br($comment->getContenu()); ?>
+							</p>
+							<span> Nb de signalement : <?php echo $comment->getSignaler(); ?> </span>
+							<form action="#" method="post">
+								<button class="btSignaler" value="comment_<?php echo $comment->getId(); ?>" name="btSignaler"> Signaler </button>
+							</form>
+						</div>
+					<?php
+				}
+			}
+			else
+			{
+				?>
+					<p> Aucun commentaire pour le moment. </p>
+				<?php
+			}
+		?>
 </div>
 <?php
-	var_dump($success);
+	if(!empty($success))
+	{
+		var_dump($success);
+	}
+	if(!empty($error))
+		var_dump($error);
 ?>
 <form action="#" method="post">
 	<input type="name" id="cName" class="cName" name="cName" placeholder="Nom" />

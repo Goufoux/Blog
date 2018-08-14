@@ -6,6 +6,7 @@
 		<link rel="stylesheet" href="css/frontend/index.css" />
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/jquery-3.3.1.min.js"></script>
+		<script src="js/index.js"></script>
 		<link rel="icon" type="image/x-icon" href="img/logo.png" />
 		<title><?= isset($title) ? $title : 'Genarkys' ?></title>
 	</head>
