@@ -1,1 +1,1 @@
-<h1> Page d'accueil Admin - Backend</h1>
+<h1> Bonjour <?php echo $_SESSION['membre']->getPseudo(); ?> </h1>

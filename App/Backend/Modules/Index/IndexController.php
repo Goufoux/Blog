@@ -50,6 +50,67 @@
 			$this->app->HTTPResponse()->redirect('../');
 		}
 		
+		public function executeDel(HTTPRequest $HTTPRequest)
+		{
+			$this->page->addVar('title', 'Genarkys - DEL');
+			if($HTTPRequest->getExists('id'))
+			{
+				$billet = $this->managers->getManagerOf('Billet')->getBillet($HTTPRequest->getData('id'));
+				$this->page->addVar('billet', $billet);
+			}
+			
+			/* Si on trouve la confirmation on supprime le billet */
+			if($HTTPRequest->postExists('delBillet') AND $billet)
+			{
+				if($this->managers->getManagerOf('Billet')->delBillet($billet->getId()))
+				{
+					$this->page->addVar('success', 'Le billet a bien été supprimé');
+				}
+			}
+		}
+		
+		public function executeUpd(HTTPRequest $HTTPRequest)
+		{
+			$this->page->addVar('title', 'Genarkys - UPD');
+			
+			/* On regarde si le billet à modifier a été séléctionné */
+			if($HTTPRequest->getExists('id'))
+			{
+				$billet = $this->managers->getManagerOf('Billet')->getBillet($HTTPRequest->getData('id'));
+				$this->page->addVar('billet', $billet);
+			}
+			
+			if($HTTPRequest->postExists('bTitle') AND !empty($HTTPRequest->postData('bTitle')))
+			{
+				/* On accède au manager des Billets */
+				$bManager = $this->managers->getManagerOf('Billet');
+				$billet = new Billet([
+				'id' => $billet->getId(),
+				'titre' => $HTTPRequest->postData('bTitle'),
+				'contenu' => $HTTPRequest->postData('bDesc'),
+				'datePub' => $billet->getDatePub()
+				]);
+				/* On vérifie si il y a des erreurs */
+				if(!$billet->getErreurs())
+				{
+					$e = $bManager->updBillet($billet);
+					if($e)
+					{
+						$this->page->addVar('success', true);
+					}
+					else
+					{
+						$this->page->addVar('error', $bManager->getManagerError());
+					}
+				}
+				else
+				{
+					$this->page->addVar('error', $billet->getErreurs());
+				}
+			}
+			
+		}
+		
 		public function executeAdd(HTTPRequest $HTTPRequest)
 		{
 			$this->page->addVar('title', 'Genarkys - Admin - Add');
@@ -69,7 +130,7 @@
 					$e = $bManager->addBillet($billet);
 					if($e)
 					{
-						$this->page->addVar('success', $bManager->getManagerError());
+						$this->page->addVar('success', true);
 					}
 					else
 					{
@@ -80,11 +141,6 @@
 				{
 					$this->page->addVar('error', $billet->getErreurs());
 				}
-			}
-			else
-			{
-				$this->page->addVar('req', 'Formulaire non détécté');
-				$this->page->addVar('method', $HTTPRequest->method());
 			}
 		}
 	}

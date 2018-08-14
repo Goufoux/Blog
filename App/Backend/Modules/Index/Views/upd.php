@@ -2,12 +2,20 @@
 <!-- Inclusion du plugin TinyMCE -->
 <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=f4dp9wawlw7lf2eguscb58wx6b7v18y76xypimmcsb77gewa"></script>
 <script src="../js/admin/index.js"></script>
-<h3> Ajout d'un billet </h3>
-<form action="#" method="post" class="formAdd">
-	<input type="text" name="bTitle" placeholder="Titre" id="bTitle" class="col-12" />
-	<textarea name="bDesc" placeholder="Contenu" id="bDesc" class="col-12"></textarea>
-	<input type="submit" value="Ajouter" />
-</form>
+<?php
+	if(!empty($billet))
+	{
+		?>
+			<h2> Modif d'un billet </h2>
+				<form action="#" method="post" class="formAdd">
+					<input type="text" name="bTitle" placeholder="Titre" id="bTitle" class="col-12" value="<?php echo $billet->getTitre(); ?>" />
+					<textarea name="bDesc" placeholder="Contenu" class="col-12" id="bDesc"><?php echo nl2br($billet->getContenu()); ?></textarea>
+					<input type="submit" value="Modifier" />
+				</form>
+		<?php
+	}
+	?>
+<p>
 	<?php
 		if(!empty($error))
 		{
@@ -26,7 +34,8 @@
 		if(!empty($success))
 		{
 			?>
-				<h4> Le billet a bien été ajouté ! </h4>
+				<h4> Le billet a bien été modifié ! </h4>
 			<?php
 		}
 	?>
+</p>
