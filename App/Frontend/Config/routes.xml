@@ -3,4 +3,6 @@
 
 	<route url="/openclassroom/Blog/Web/" module="index" action="index"></route>
 	<route url="/openclassroom/Blog/Web/billet-([0-9]+)" module="index" action="showBillet" vars="id"></route>
+	<route url="/openclassroom/Blog/Web/connect" module="Index" action="connect"></route>
+	<route url="/openclassroom/Blog/Web/deconnect" module="Index" action="deconnect"></route>
 </routes>
