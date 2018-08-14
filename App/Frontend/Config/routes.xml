@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <routes>
+
 	<route url="/openclassroom/Blog/Web/" module="index" action="index"></route>
+	<route url="/openclassroom/Blog/Web/billet-([0-9]+)" module="index" action="showBillet" vars="id"></route>
 </routes>
