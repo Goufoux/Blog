@@ -26,7 +26,9 @@
 		{
 			$this->page->addVar('title', 'Genarkys - Billet');
 			$billet = $this->managers->getManagerOf('Billet')->getBillet($HTTPRequest->getData('id'));
+			$listComment = $this->managers->getManagerOf('Comment')->getComment($billet->getId(), 'list');
 			$this->page->addVar('billet', $billet);
+			$this->page->addVar('listComment', $listComment);
 			
 			/* On regarde si des données pour un commentaire sont présente */
 			if($HTTPRequest->postExists('cName'))
@@ -35,10 +37,37 @@
 				$comment = new Comment([
 					'name' => $HTTPRequest->postData('cName'),
 					'contenu' => $HTTPRequest->postData('cDesc'),
+					'email' => $HTTPRequest->postData('cEmail'),
+					'attachId' => $HTTPRequest->postData('bId')
 				]);
 				/*  */
-				$e = count($comment->getErreurs());
-				$this->page->addVar('success', $e);
+				if(!$comment->getErreurs())
+				{
+					if($cManager = $this->managers->getManagerOf('comment')->addComment($comment))
+						$this->page->addVar('success', 'Commentaire Ok');
+					else
+						$this->page->addVar('error', 'Erreur Commentaire');
+				}
+				else
+				{
+					$this->page->addVar('error', $comment->getErreurs());
+				}
+			}
+			
+			/* On regarde si un signalement est effectué */
+			if($HTTPRequest->postExists('btSignaler'))
+			{
+				$idComment = explode('_', $HTTPRequest->postData('btSignaler'));
+				/* On récupére le commentaire */
+				if($cManager = $this->managers->getManagerOf('comment')->getComment($idComment[1], 'once'))
+				{
+					$nb = $cManager['signaler'] + 1;
+					/* Mise à jour du nb de signalement */
+					if($cManager = $this->managers->getManagerOf('comment')->signalerComment($idComment[1], $nb))
+						$this->page->addVar('success', 'Signalement pris en compte');
+					
+				}
+				
 			}
 			
 		}
