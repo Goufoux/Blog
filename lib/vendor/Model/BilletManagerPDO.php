@@ -8,7 +8,7 @@
 	{
 		protected $managerError = [];
 		
-		public function getBillet($id = false)
+		public function getBillet($id = false, $nb = '')
 		{
 			if($id)
 			{
@@ -27,7 +27,9 @@
 			}
 			else
 			{
-				$req = $this->dao->query('SELECT * FROM billet');
+				if(!empty($nb))
+					$nb = 'LIMIT 0,' . $nb . '';
+				$req = $this->dao->query('SELECT * FROM billet ORDER BY datePub DESC ' . $nb);
 				$req->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Billet');
 				$req->execute();
 				if($rs = $req->fetchAll())
@@ -39,6 +41,31 @@
 					return false;
 				}
 			}
+		}
+		
+		public function delBillet($id)
+		{
+			$req = $this->dao->prepare('DELETE FROM billet WHERE id = :id');
+			$req->bindValue(':id', $id, \PDO::PARAM_INT);
+			$req->execute();
+			
+			$cmt = $this->dao->prepare('DELETE FROM comment WHERE idAttach = :idAttach');
+			$cmt->bindValue(':idAttach', $id, \PDO::PARAM_INT);
+			$cmt->execute();
+			return true;
+		}
+		
+		public function updBillet(Billet $billet)
+		{
+			$act = getDate();
+			$req = $this->dao->prepare('UPDATE billet SET titre = :titre, contenu = :contenu, datePub = :datePub, dateMod = :dateMod WHERE id = :id');
+			$req->bindValue(':titre', $billet->getTitre(), \PDO::PARAM_STR);
+			$req->bindValue(':contenu', $billet->getContenu(), \PDO::PARAM_STR);
+			$req->bindValue(':datePub', $billet->getDatePub(), \PDO::PARAM_INT);
+			$req->bindValue(':dateMod', $act[0], \PDO::PARAM_STR);
+			$req->bindValue(':id', $billet->getId(), \PDO::PARAM_INT);
+			$req->execute();
+			return true;
 		}
 		
 		public function addBillet(Billet $billet)
@@ -53,6 +80,7 @@
 				$req->bindValue(':datePub', $act[0], \PDO::PARAM_INT);
 				$req->bindValue(':dateMod', '0', \PDO::PARAM_STR);
 				$req->execute();
+				return true;
 			}
 			else
 			{
