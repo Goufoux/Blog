@@ -1,0 +1,47 @@
+.boxComment
+{
+	text-align: center;
+}
+.comment
+{
+	margin: 1% auto;
+	display: inline-block;
+	vertical-align: top;
+}
+.comment article
+{
+	padding: 2%;
+	margin: 1% auto;
+	background-color: rgb(33, 37, 41);
+	border-radius: 4px;
+	color: white;
+}
+.comment article p 
+{
+	margin: 2% auto;
+}
+.comment article ul
+{
+	text-align: right;
+	list-style-type: none;
+}
+.formComment
+{
+	margin: 1% auto;
+	display: inline-block;
+	vertical-align: top;
+}
+.formComment h4
+{
+	text-align: center;
+}
+.formComment input
+{
+	margin: 1% auto;
+	display: block;
+}
+.formComment textarea
+{
+	margin: 1% auto;
+	height: 250px;
+}
