@@ -12,7 +12,7 @@
 		{
 			$user = 'root';
 			$pass = '';
-			$host = 'mysql:host=127.0.0.1;dbname=genarkys';
+			$host = 'mysql:host=127.0.0.1;dbname=Blog';
 			// On tente la connexion //
 			try
 			{
