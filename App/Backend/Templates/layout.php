@@ -23,6 +23,9 @@
 					<li class="nav-item">
 						<a href="#" class="nav-link noActive" title="Roman"> Billet simple pour l'Alaska </a>
 					</li>
+					<li class="nav-item">
+						<a href="deconnect" class="nav-link" title="deco"> Déco </a>
+					</li>
 				</ul>
 			</div>
 		</nav>
@@ -34,6 +37,7 @@
 						<a href="add"><button id="addPage"> Ajouter </button></a>
 						<button id="updPage"> Modifier </button>
 						<button id="delPage"> Supprimer </button>
+						<?php var_dump($_SESSION); ?>
 				</nav>
 				<div class="col-10">
 					<p>

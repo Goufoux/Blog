@@ -16,8 +16,38 @@
 	{
 		public function executeIndex(HTTPRequest $HTTPRequest)
 		{
-			$this->page->addVar('title', 'Genarkys - Admin - Backend');	
-			$this->page->addVar('req', $HTTPRequest);
+			if($this->app->user()->isAuthentificated())
+				$this->page->addVar('title', 'Genarkys - Admin - Backend');	
+			else
+				$this->app->HTTPResponse()->redirect('connect');
+		}
+		
+		public function executeConnect(HTTPRequest $HTTPRequest)
+		{
+			$this->page->addVar('title', 'Genarkys - Connexion');
+			
+			/* On regarde si des identifiants sont transmis pour une connexion */
+			if($HTTPRequest->postExists('uLogin'))
+			{
+				if($HTTPRequest->postExists('uPass') AND !empty($HTTPRequest->postData('uPass')))
+				{
+					$uManager = $this->managers->getManagerOf('User');
+					if($uManager->userLogin($HTTPRequest->postData('uLogin'), $HTTPRequest->postData('uPass')))
+					{
+						$this->app->HTTPResponse()->redirect('../');
+					}
+					else
+						$this->page->addVar('success', $uManager->getError());
+				}
+				else
+					$this->page->addVar('success', 'Renseigné Pass');
+			}
+		}
+		
+		public function executeDeconnect(HTTPRequest $HTTPRequest)
+		{
+			session_destroy();
+			$this->app->HTTPResponse()->redirect('../');
 		}
 		
 		public function executeAdd(HTTPRequest $HTTPRequest)
