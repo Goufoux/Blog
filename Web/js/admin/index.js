@@ -1,5 +1,10 @@
 window.onload = function()
 {
+	setTimeout(loadAPI, 2500);
+}
+
+function loadAPI()
+{
 	/* Initialisation de TinyMCE */
 	tinymce.init({
 		selector: 'textarea#bDesc',
