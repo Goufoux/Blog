@@ -6,6 +6,5 @@
 	<route url="/openclassroom/Blog/Web/admin/upd" module="index" action="upd"></route>
 	<route url="/openclassroom/Blog/Web/admin/del-([0-9]+)" module="index" action="del" vars="id"></route>
 	<route url="/openclassroom/Blog/Web/admin/del" module="index" action="del"></route>
-	<route url="/openclassroom/Blog/Web/admin/connect" module="index" action="connect"></route>
 	<route url="/openclassroom/Blog/Web/admin/deconnect" module="index" action="deconnect"></route>
 </routes>
