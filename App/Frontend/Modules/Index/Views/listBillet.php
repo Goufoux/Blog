@@ -10,9 +10,9 @@
 		{
 			$date = getDate($billet->getDatePub());
 			?>
-				<a href="billet-<?php echo $billet->getId(); ?>"> <article class="billet col-4">
+				<a href="billet-<?php echo $billet->getId(); ?>"> <article class="billet col-6 col-sm-6 col-md-5 col-lg-4">
 					<h3> <?php echo $billet->getTitre(); ?> </h3>
-					<ul>
+					<ul class="col-12">
 						<li> Publié le: <?php echo $date['mday'] . '/' . $date['mon'] . '/' . $date['year']; ?> </li>
 					</ul>
 				</article> </a>

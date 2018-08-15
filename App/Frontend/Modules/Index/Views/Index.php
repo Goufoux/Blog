@@ -6,7 +6,7 @@
 		{
 			$date = getDate($bat->getDatePub());
 			?>
-				<article class="col-6 billet">
+				<article class="col-12 col-md-8 col-sm-12 billet">
 					<h3> <a href="billet-<?php echo $bat->getId(); ?>"> <?php echo $bat->getTitre(); ?> </a> </h3>
 					<div class="content">
 						<?php echo nl2br($bat->getContenu()); ?>

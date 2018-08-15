@@ -10,7 +10,7 @@
 			<?php
 		}
 	?>
-<article class="col-10 billet">
+<article class="col-12 col-md-10 col-lg-8 billet">
 	<h3> <?php echo $billet->getTitre(); ?> </h3>
 	<div class="content">
 		<?php echo nl2br($billet->getContenu()); ?>
@@ -32,7 +32,7 @@
 			?>
 </article>
 <section class="boxComment col-12">
-	<form action="#" method="post" class="col-3 formComment">
+	<form action="#" method="post" class="col-lg-3 col-md-8 col-sm-12 formComment">
 		<h4> Laissez un commentaire ! </h4>
 		<input type="name" id="cName" class="cName col-12" name="cName" placeholder="Nom" required />
 		<input type="email" id="cEmail" class="cEmail col-12" name="cEmail" placeholder="Email" required />
@@ -40,7 +40,7 @@
 		<textarea class="cDesc col-12" id="cDesc" name="cDesc" placeholder="Commentaire..." required></textarea>
 		<input type="submit" value="Commenter" />
 	</form>
-	<div class="comment col-7">
+	<div class="comment col-lg-7 col-md-8 col-sm-12">
 		<h3> Liste des commentaires : </h3>
 			<?php
 				if(!empty($listComment))
