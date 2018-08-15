@@ -2,8 +2,10 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
 		<link rel="stylesheet" href="../css/bootstrap.min.css" />
 		<link rel="stylesheet" href="../css/backend/index.css" />
+		<link rel="stylesheet" media="screen and (min-width: 768px)" href="../css/backend/md.css" />
 		<script src="../js/jquery-3.3.1.min.js"></script>
 		<script src="../js/bootstrap.min.js"></script>
 		<script src="../js/index.js"></script>
@@ -54,23 +56,14 @@
 		</nav>
 		<div class="bloc"></div>
 		<div class="container-fluid">
-			<div class="row">
-				<?php 
-					if(!empty($_SESSION['auth']) AND $_SESSION['auth'])
-					{
-						?>
-							<nav class="col-2 col-sm-3">
-								<h2 class="col-12 col-sm-5"> Administration </h2>
-									<a href="add"><button id="addPage"> Ajouter </button></a>
-							</nav>
-						<?php
-					}
-				?>
-				<div class="col-10 col-sm-9">
-					<p>
-						<?= $content; ?>
-					</p>
-				</div>
+			<nav class="col-12 col-sm-3">
+				<h3 class="col-12 col-sm-5"> Administration </h3>
+					<a href="add"><button id="addPage"> Ajouter </button></a>
+			</nav>
+			<div class="col-12 col-sm-12 col-md-12 col-lg-12">
+				<p>
+					<?= $content; ?>
+				</p>
 			</div>
 		</div>
 	</body>
