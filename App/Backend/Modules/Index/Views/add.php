@@ -4,14 +4,16 @@
 <script src="../js/admin/index.js"></script>
 <h3> Ajout d'un billet </h3>
 <form action="#" method="post" class="formAdd">
-	<input type="text" name="bTitle" placeholder="Titre" id="bTitle" class="col-12" />
-	<textarea name="bDesc" placeholder="Contenu" id="bDesc" class="col-12"></textarea>
+	<input type="text" name="bTitle" placeholder="Titre" id="bTitle" class="col-12" value="<?php if(!empty($_POST['bTitle'])) echo $_POST['bTitle']; ?>" required />
+	<textarea name="bDesc" placeholder="Contenu" id="bDesc" class="col-12" ><?php if(!empty($_POST['bDesc'])) echo $_POST['bDesc']; ?></textarea>
 	<input type="submit" value="Ajouter" />
 </form>
 	<?php
 		if(!empty($error))
 		{
 			?>
+			<article class="error">
+				<img src="../img/croix.png" class="croix" alt="Fermer ?" title="Fermer ?" />
 				<h4> Erreurs détéctées </h4>
 				<p>
 			<?php
@@ -21,6 +23,7 @@
 				}
 			?>
 				</p>
+			</article>
 			<?php
 		}
 		if(!empty($success))
