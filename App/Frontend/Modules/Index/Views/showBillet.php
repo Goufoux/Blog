@@ -16,19 +16,31 @@
 		<?php echo nl2br($billet->getContenu()); ?>
 	</div>
 	<ul>
-	<li> PUB: <?php echo $billet->getDatePub(); ?> </li>
-	<li> MOD: <?php echo $billet->getDateMod(); ?> </li>
+		<?php
+			$date = getDate($billet->getDatePub());
+		?>
+		<li> Publié le: <?php echo $date['mday'] . "/" . $date['mon'] . "/" . $date['year']; ?> </li>
+			<?php
+				if($billet->getDateMod())
+				{
+					$act = getDate();
+					$diff = getDate($act[0] - $billet->getDateMod());
+					?>
+						<li> Modifié il y a : <?php echo $diff['hours'] . ':' . $diff['minutes'] . ':' . $diff['seconds']; ?> </li>
+					<?php
+				}
+			?>
 </article>
 <section class="boxComment col-12">
 	<form action="#" method="post" class="col-3 formComment">
 		<h4> Laissez un commentaire ! </h4>
-		<input type="name" id="cName" class="cName col-12" name="cName" placeholder="Nom" />
-		<input type="email" id="cEmail" class="cEmail col-12" name="cEmail" placeholder="Email" />
+		<input type="name" id="cName" class="cName col-12" name="cName" placeholder="Nom" required />
+		<input type="email" id="cEmail" class="cEmail col-12" name="cEmail" placeholder="Email" required />
 		<input type="hidden" name="bId" value="<?php echo $billet->getId();?>" />
-		<textarea class="cDesc col-12" id="cDesc" name="cDesc" placeholder="Commentaire..."></textarea>
+		<textarea class="cDesc col-12" id="cDesc" name="cDesc" placeholder="Commentaire..." required></textarea>
 		<input type="submit" value="Commenter" />
 	</form>
-	<div class="comment col-8">
+	<div class="comment col-7">
 		<h3> Liste des commentaires : </h3>
 			<?php
 				if(!empty($listComment))
@@ -62,10 +74,13 @@
 		</div>
 </section>
 <?php
-	if(!empty($success))
-	{
-		var_dump($success);
-	}
 	if(!empty($error))
-		var_dump($error);
+	{
+		?>
+			<article class="error">
+				<img src="img/croix.png" class="croix" alt="Fermer ?" title="Fermer ?" />
+				<h4> <?php echo $error; ?> </h4>
+			</article>
+		<?php
+	}
 ?>
