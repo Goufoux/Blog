@@ -56,8 +56,8 @@
 		</nav>
 		<div class="bloc"></div>
 		<div class="container-fluid">
-			<nav class="col-12 col-sm-3">
-				<h3 class="col-12 col-sm-5"> Administration </h3>
+			<nav class="col-12 col-sm-4">
+				<h3 class="col-12"> Administration </h3>
 					<a href="add"><button id="addPage"> Ajouter </button></a>
 			</nav>
 			<div class="col-12 col-sm-12 col-md-12 col-lg-12">
