@@ -1,6 +1,6 @@
 window.onload = function()
 {
-	setTimeout(loadAPI, 2500);
+	setTimeout(loadAPI, 1000);
 }
 
 function loadAPI()
