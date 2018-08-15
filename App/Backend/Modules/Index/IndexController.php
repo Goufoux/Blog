@@ -49,7 +49,7 @@
 				}
 			}
 			else
-				$this->app->HTTPResponse()->redirect('connect');
+				$this->app->HTTPResponse()->redirect('../connect');
 		}
 		
 		public function executeConnect(HTTPRequest $HTTPRequest)
@@ -102,7 +102,7 @@
 			}
 			else
 			{
-				$this->app->HTTPResponse()->redirect('connect');
+				$this->app->HTTPResponse()->redirect('../connect');
 			}
 		}
 		
@@ -150,7 +150,7 @@
 			}
 			else
 			{
-				$this->app->HTTPResponse()->redirect('connect');
+				$this->app->HTTPResponse()->redirect('../connect');
 			}
 			
 		}
@@ -191,7 +191,7 @@
 			}
 			else
 			{
-				$this->app->HTTPResponse()->redirect('connect');
+				$this->app->HTTPResponse()->redirect('../connect');
 			}
 		}
 	}
