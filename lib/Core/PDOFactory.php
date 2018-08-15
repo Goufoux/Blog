@@ -10,6 +10,9 @@
 	{
 		public static function getMysqlConnexion()
 		{
+			// $user = 'dbo749926506';
+			// $pass = 'MeRiou35$';
+			// $host = 'mysql:host=db749926506.db.1and1.com;dbname=db749926506';
 			$user = 'root';
 			$pass = '';
 			$host = 'mysql:host=127.0.0.1;dbname=Blog';
