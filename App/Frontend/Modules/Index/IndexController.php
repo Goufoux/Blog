@@ -22,6 +22,13 @@
 			$this->page->addVar('billet', $billet);
 		}
 		
+		public function executeListBillet(HTTPRequest $HTTPRequest)
+		{
+			$bManager = $this->managers->getManagerOf('Billet')->getBillet();
+			$this->page->addVar('title', 'Liste des Billets');
+			$this->page->addVar('list', $bManager);
+		}
+		
 		public function executeConnect(HTTPRequest $HTTPRequest)
 		{
 			$this->page->addVar('title', 'Genarkys - Connexion');
@@ -61,7 +68,6 @@
 			/* On regarde si des données pour un commentaire sont présente */
 			if($HTTPRequest->postExists('cName'))
 			{
-				// $this->page->addVar('comment', true);
 				$comment = new Comment([
 					'name' => $HTTPRequest->postData('cName'),
 					'contenu' => $HTTPRequest->postData('cDesc'),
@@ -71,14 +77,18 @@
 				/*  */
 				if(!$comment->getErreurs())
 				{
-					if($cManager = $this->managers->getManagerOf('comment')->addComment($comment))
-						$this->page->addVar('success', 'Commentaire Ok');
+					$cManager = $this->managers->getManagerOf('comment');
+					if($cManager->addComment($comment))
+					{
+						$this->app->HTTPResponse()->redirect('/openclassroom/Blog/Web/billet-'.$comment->getAttachId());
+					}
 					else
-						$this->page->addVar('error', 'Erreur Commentaire');
+						$this->page->addVar('error', $cManager->getError());
 				}
 				else
 				{
-					$this->page->addVar('error', $comment->getErreurs());
+					$error = $comment->getErreurs();
+					$this->page->addVar('error', $error[0]);
 				}
 			}
 			
