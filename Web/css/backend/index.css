@@ -31,7 +31,7 @@ body, html
 {
 	border-right: groove 1px rgb(33, 37, 41);
 }
-.container-fluid nav h2
+.container-fluid nav h3
 {
 	text-align: center;
 }
