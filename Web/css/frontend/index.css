@@ -17,6 +17,7 @@ body, html
 	background-color: white;
 	padding: 2%;
 	text-align: center;
+	width: 100%;
 }
 .container-fluid a
 {
@@ -47,17 +48,6 @@ body, html
 {
 	text-align: right;
 	list-style-type: none;
-}
-
-/* Nav */
-.navAdmin
-{
-	text-align: center;
-}
-.navAdmin a
-{
-	text-decoration: none;
-	cursor: default;
 }
 .error
 {

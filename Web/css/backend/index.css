@@ -40,7 +40,6 @@ body, html
 	display: block;
 	margin: 2% auto;
 	transition: all .2s;
-	width: 40%;
 }
 .container-fluid nav button:hover
 {
