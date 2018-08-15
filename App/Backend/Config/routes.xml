@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <routes>
-	<route url="/openclassroom/Blog/Web/admin/" module="Index" action="Index"></route>
-	<route url="/openclassroom/Blog/Web/admin/add" module="Index" action="add"></route>
-	<route url="/openclassroom/Blog/Web/admin/upd-([0-9]+)" module="Index" action="upd" vars="id"></route>
-	<route url="/openclassroom/Blog/Web/admin/upd" module="Index" action="upd"></route>
-	<route url="/openclassroom/Blog/Web/admin/del-([0-9]+)" module="Index" action="del" vars="id"></route>
-	<route url="/openclassroom/Blog/Web/admin/del" module="Index" action="del"></route>
-	<route url="/openclassroom/Blog/Web/admin/connect" module="Index" action="connect"></route>
-	<route url="/openclassroom/Blog/Web/admin/deconnect" module="Index" action="deconnect"></route>
+	<route url="/openclassroom/Blog/Web/admin/" module="index" action="index"></route>
+	<route url="/openclassroom/Blog/Web/admin/add" module="index" action="add"></route>
+	<route url="/openclassroom/Blog/Web/admin/upd-([0-9]+)" module="index" action="upd" vars="id"></route>
+	<route url="/openclassroom/Blog/Web/admin/upd" module="index" action="upd"></route>
+	<route url="/openclassroom/Blog/Web/admin/del-([0-9]+)" module="index" action="del" vars="id"></route>
+	<route url="/openclassroom/Blog/Web/admin/del" module="index" action="del"></route>
+	<route url="/openclassroom/Blog/Web/admin/connect" module="index" action="connect"></route>
+	<route url="/openclassroom/Blog/Web/admin/deconnect" module="index" action="deconnect"></route>
 </routes>
