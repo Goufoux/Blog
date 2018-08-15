@@ -1,0 +1,11 @@
+@media screen and (min-width: 768px) and (max-width: 991px)
+{
+	.comment
+	{
+		display: block;
+	}
+	.formComment
+	{
+		display: block;
+	}
+}

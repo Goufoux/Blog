@@ -1,0 +1,7 @@
+@media screen and (min-width: 768px) and (max-width: 991px)
+{
+	.container-fluid nav h2
+	{
+		font-size: 20px;
+	}
+}
