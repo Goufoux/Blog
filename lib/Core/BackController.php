@@ -18,7 +18,7 @@
 		{
 			parent::__construct($app);
 			
-			$this->managers = new managers('PDO', PDOFactory::getMysqlConnexion());
+			$this->managers = new Managers('PDO', PDOFactory::getMysqlConnexion());
 			$this->page = new Page($app);
 			
 			$this->setModule($module);
