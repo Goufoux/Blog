@@ -8,8 +8,8 @@
 		?>
 			<h2> Modif d'un billet </h2>
 				<form action="#" method="post" class="formAdd">
-					<input type="text" name="bTitle" placeholder="Titre" id="bTitle" class="col-12" value="<?php echo $billet->getTitre(); ?>" />
-					<textarea name="bDesc" placeholder="Contenu" class="col-12" id="bDesc"><?php echo nl2br($billet->getContenu()); ?></textarea>
+					<input type="text" name="bTitle" placeholder="Titre" id="bTitle" class="col-12" value="<?php echo $billet->getTitre(); ?>" required />
+					<textarea name="bDesc" placeholder="Contenu" class="col-12" id="bDesc" required ><?php echo nl2br($billet->getContenu()); ?></textarea>
 					<input type="submit" value="Modifier" />
 				</form>
 		<?php
