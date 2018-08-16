@@ -1,0 +1,11 @@
+.billet
+{
+	display: inline-block;
+	margin: 2%;
+	transition: all .5s;
+}
+.billet:hover
+{
+	transform: scale(1.1, 1.1);
+	border-radius: 0;
+}
