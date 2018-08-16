@@ -49,7 +49,7 @@
 			{
 				$req = $this->dao->prepare('SELECT id FROM billet WHERE id = :id');
 				$req->bindValue(':id', $id, \PDO::PARAM_INT);
-				$req->fetch();
+				$req->execute();
 				if($rs = $req->fetch())
 					return true;
 				else
