@@ -12,17 +12,15 @@
 							$act = getDate();
 							$diff = getDate($act[0] - $comment->getDatePub());
 							?>
-								<article class="comment">
+								<article class="comment col-lg-4 col-md-6 col-sm-8 col-8">
 									<p>
 										<?php echo nl2br($comment->getContenu()); ?>
 									</p>
 									<ul>
-										<li> De: <?php echo $comment->getName() . ' (' . $comment->getEmail() . ')'; ?> </li>
 										<li> Il y a <?php echo $diff['hours'].':'.$diff['minutes'].':'.$diff['seconds']; ?></li>
 										<li> <?php echo $comment->getSignaler(); ?> signalement(s) </li>
 									</ul>
 									<a href="?delComment=<?php echo $comment->getId(); ?>"> <button> Supprimer </button> </a>
-									<a href="?delCommentAndReport=<?php echo $comment->getId(); ?>&email=<?php echo $comment->getEmail(); ?>"> <button> Bloquer l'email et supprimer </button> </a>
 								</article>
 							<?php
 						}
