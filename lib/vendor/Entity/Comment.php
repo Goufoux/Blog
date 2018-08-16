@@ -8,9 +8,8 @@
 	{
 		protected $name;
 		protected $contenu;
-		protected $email;
 		protected $datePub;
-		protected $attachId;
+		protected $idBillet;
 		protected $signaler;
 		
 		public function getName()
@@ -23,19 +22,14 @@
 			return $this->contenu;
 		}
 		
-		public function getEmail()
-		{
-			return $this->email;
-		}
-		
 		public function getDatePub()
 		{
 			return $this->datePub;
 		}
 		
-		public function getAttachId()
+		public function getIdBillet()
 		{
-			return $this->attachId;
+			return $this->idBillet;
 		}
 		
 		public function getSignaler()
@@ -51,7 +45,7 @@
 				{
 					if(strlen($name) <= 25)
 					{
-						$this->name = $name;
+						$this->name = htmlspecialchars($name);
 					}
 					else
 						$this->erreurs[] = "Le name doit être inférieur ou égal à 25 caractères.";
@@ -67,24 +61,14 @@
 		{
 			if(!empty($contenu))
 			{
-				$this->contenu = $contenu;
+				$this->contenu = htmlspecialchars($contenu);
 			}
 			else
 				$this->erreurs[] = "Le contenu est invalide.";
 		}
 		
-		public function setEmail($email)
+		public function setIdBillet($id)
 		{
-			if(!empty($email))
-			{
-				$this->email = $email;
-			}
-			else
-				$this->erreurs[] = "L'email est trop petit";
-		}
-		
-		public function setAttachId($id)
-		{
-			$this->attachId = $id;
+			$this->idBillet = $id;
 		}
 	}
