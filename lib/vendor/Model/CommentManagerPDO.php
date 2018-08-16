@@ -10,33 +10,23 @@
 		
 		public function addComment(Comment $comment)
 		{
-			/* Vérifie que l'email n'est pas bloquée */
-			if(!$this->hasReportEmail($comment->getEmail()))
-			{
-				$act = getDate();
-				$req = $this->dao->prepare('INSERT INTO comment(name, contenu, email, idAttach, datePub) VALUES(:name, :contenu, :email, :idAttach, :datePub)');
-				$req->bindValue(':name', $comment->getName(), \PDO::PARAM_STR);
-				$req->bindValue(':contenu', $comment->getContenu(), \PDO::PARAM_STR);
-				$req->bindValue(':email', $comment->getEmail(), \PDO::PARAM_STR);
-				$req->bindValue(':idAttach', $comment->getAttachId(), \PDO::PARAM_INT);
-				$req->bindValue(':datePub', $act[0], \PDO::PARAM_INT);
-				$req->execute();
-				return true;
-			}
-			else
-			{
-				$this->setError('Cet adresse E-Mail a été bloquée');
-				return false;
-			}
+			$act = getDate();
+			$req = $this->dao->prepare('INSERT INTO comment(name, contenu, idBillet, datePub) VALUES(:name, :contenu, :idBillet, :datePub)');
+			$req->bindValue(':name', $comment->getName(), \PDO::PARAM_STR);
+			$req->bindValue(':contenu', $comment->getContenu(), \PDO::PARAM_STR);
+			$req->bindValue(':idBillet', $comment->getIdBillet(), \PDO::PARAM_INT);
+			$req->bindValue(':datePub', $act[0], \PDO::PARAM_INT);
+			$req->execute();
+			return true;
 		}
 		
 		public function getComment($id, $module)
 		{
 			if($module == 'list') // Liste des commentaires d'un billet
 			{
-				$req = $this->dao->prepare('SELECT * FROM comment WHERE idAttach = :idAttach ORDER BY datePub DESC');
+				$req = $this->dao->prepare('SELECT * FROM comment WHERE idBillet = :idBillet ORDER BY datePub DESC');
 				$req->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Comment');
-				$req->bindValue(':idAttach', $id, \PDO::PARAM_INT);
+				$req->bindValue(':idBillet', $id, \PDO::PARAM_INT);
 				$req->execute();
 				if($rs = $req->fetchAll())
 				{
@@ -84,17 +74,6 @@
 			{
 				return false;
 			}
-		}
-		
-		public function hasReportEmail($email)
-		{
-			$req = $this->dao->prepare('SELECT email FROM report WHERE email = :email');
-			$req->bindValue('email', $email, \PDO::PARAM_STR);
-			$req->execute();
-			if($rs = $req->fetch())
-				return true;
-			else
-				return false;
 		}
 		
 		public function delComment($id, $report = false)
