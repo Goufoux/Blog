@@ -6,7 +6,7 @@
 	
 	class BilletManagerPDO extends BilletManager
 	{
-		protected $managerError = [];
+		protected $managerError = '';
 		
 		public function getBillet($id = false, $nb = '')
 		{
@@ -40,6 +40,28 @@
 				{
 					return false;
 				}
+			}
+		}
+		
+		public function existBillet($id)
+		{
+			if((int)$id)
+			{
+				$req = $this->dao->prepare('SELECT id FROM billet WHERE id = :id');
+				$req->bindValue(':id', $id, \PDO::PARAM_INT);
+				$req->fetch();
+				if($rs = $req->fetch())
+					return true;
+				else
+				{
+					$this->setManagerError('Le billet est introuvable.<br />Il a peut-être était déplacé ou supprimé !');
+					return false;
+				}
+			}
+			else
+			{
+				$this->setManagerError('L\'id est invalide.');
+				return false;
 			}
 		}
 		
@@ -102,7 +124,7 @@
 		
 		public function setManagerError($error)
 		{
-			$this->managerError[] = $error;
+			$this->managerError = $error;
 		}
 		
 		public function getManagerError()
