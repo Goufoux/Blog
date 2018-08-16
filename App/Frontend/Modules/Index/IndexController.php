@@ -70,13 +70,12 @@
 					$this->page->addVar('listComment', $listComment);
 					
 					/* On regarde si des données pour un commentaire sont présente */
-					if($HTTPRequest->postExists('cName'))
+					if($HTTPRequest->postExists('cDesc'))
 					{
 						$comment = new Comment([
-							'name' => $HTTPRequest->postData('cName'),
-							'contenu' => $HTTPRequest->postData('cDesc'),
-							'email' => $HTTPRequest->postData('cEmail'),
-							'attachId' => $HTTPRequest->postData('bId')
+							'name' => $_SESSION['membre']->getPseudo(),
+							'contenu' => htmlspecialchars($HTTPRequest->postData('cDesc')),
+							'idBillet' => $HTTPRequest->postData('bId')
 						]);
 						/*  */
 						if(!$comment->getErreurs())
@@ -84,7 +83,7 @@
 							$cManager = $this->managers->getManagerOf('comment');
 							if($cManager->addComment($comment))
 							{
-								$this->app->HTTPResponse()->redirect('/openclassroom/Blog/Web/billet-'.$comment->getAttachId());
+								$this->app->HTTPResponse()->redirect('/openclassroom/Blog/Web/billet-'.$comment->getIdBillet());
 							}
 							else
 								$this->page->addVar('error', $cManager->getError());
@@ -106,7 +105,7 @@
 							$nb = $cManager['signaler'] + 1;
 							/* Mise à jour du nb de signalement */
 							if($cManager = $this->managers->getManagerOf('comment')->signalerComment($idComment[1], $nb))
-								$this->page->addVar('success', 'Signalement pris en compte');
+								$this->page->addVar('error', 'Signalement pris en compte');
 							
 						}
 						
