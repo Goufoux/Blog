@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="../css/backend/add.css" />
 <!-- Inclusion du plugin TinyMCE -->
 <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=f4dp9wawlw7lf2eguscb58wx6b7v18y76xypimmcsb77gewa"></script>
 <script src="../js/admin/index.js"></script>
@@ -6,6 +5,7 @@
 	if(!empty($billet))
 	{
 		?>
+			<link rel="stylesheet" href="../css/backend/add.css" />
 			<h2> Modif d'un billet </h2>
 				<form action="#" method="post" class="formAdd">
 					<input type="text" name="bTitle" placeholder="Titre" id="bTitle" class="col-12" value="<?php echo $billet->getTitre(); ?>" required />
@@ -13,6 +13,22 @@
 					<input type="submit" value="Modifier" />
 				</form>
 		<?php
+	}
+	if(!empty($listBillet))
+	{
+		foreach($listBillet as $billet)
+		{
+			$date = getDate($billet->getDatePub());
+			?>
+				<link rel="stylesheet" href="../css/backend/list.css" />
+				<a href="upd-<?php echo $billet->getId(); ?>"> <article class="billet col-6 col-sm-6 col-md-5 col-lg-4">
+					<h3> <?php echo $billet->getTitre(); ?> </h3>
+					<ul class="col-12">
+						<li> Publié le: <?php echo $date['mday'] . '/' . $date['mon'] . '/' . $date['year']; ?> </li>
+					</ul>
+				</article> </a>
+			<?php
+		}
 	}
 	?>
 <p>
