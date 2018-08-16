@@ -60,53 +60,62 @@
 		public function executeShowBillet(HTTPRequest $HTTPRequest)
 		{
 			$this->page->addVar('title', 'Genarkys - Billet');
-			$billet = $this->managers->getManagerOf('Billet')->getBillet($HTTPRequest->getData('id'));
-			$listComment = $this->managers->getManagerOf('Comment')->getComment($billet->getId(), 'list');
-			$this->page->addVar('billet', $billet);
-			$this->page->addVar('listComment', $listComment);
-			
-			/* On regarde si des données pour un commentaire sont présente */
-			if($HTTPRequest->postExists('cName'))
+			if($HTTPRequest->getExists('id'))
 			{
-				$comment = new Comment([
-					'name' => $HTTPRequest->postData('cName'),
-					'contenu' => $HTTPRequest->postData('cDesc'),
-					'email' => $HTTPRequest->postData('cEmail'),
-					'attachId' => $HTTPRequest->postData('bId')
-				]);
-				/*  */
-				if(!$comment->getErreurs())
+				if($this->managers->getManagerOf('Billet')->existBillet($HTTPRequest->getData('id')))
 				{
-					$cManager = $this->managers->getManagerOf('comment');
-					if($cManager->addComment($comment))
+					$billet = $this->managers->getManagerOf('Billet')->getBillet($HTTPRequest->getData('id'));
+					$listComment = $this->managers->getManagerOf('Comment')->getComment($billet->getId(), 'list');
+					$this->page->addVar('billet', $billet);
+					$this->page->addVar('listComment', $listComment);
+					
+					/* On regarde si des données pour un commentaire sont présente */
+					if($HTTPRequest->postExists('cName'))
 					{
-						$this->app->HTTPResponse()->redirect('/openclassroom/Blog/Web/billet-'.$comment->getAttachId());
+						$comment = new Comment([
+							'name' => $HTTPRequest->postData('cName'),
+							'contenu' => $HTTPRequest->postData('cDesc'),
+							'email' => $HTTPRequest->postData('cEmail'),
+							'attachId' => $HTTPRequest->postData('bId')
+						]);
+						/*  */
+						if(!$comment->getErreurs())
+						{
+							$cManager = $this->managers->getManagerOf('comment');
+							if($cManager->addComment($comment))
+							{
+								$this->app->HTTPResponse()->redirect('/openclassroom/Blog/Web/billet-'.$comment->getAttachId());
+							}
+							else
+								$this->page->addVar('error', $cManager->getError());
+						}
+						else
+						{
+							$error = $comment->getErreurs();
+							$this->page->addVar('error', $error[0]);
+						}
 					}
-					else
-						$this->page->addVar('error', $cManager->getError());
+					
+					/* On regarde si un signalement est effectué */
+					if($HTTPRequest->postExists('btSignaler'))
+					{
+						$idComment = explode('_', $HTTPRequest->postData('btSignaler'));
+						/* On récupére le commentaire */
+						if($cManager = $this->managers->getManagerOf('comment')->getComment($idComment[1], 'once'))
+						{
+							$nb = $cManager['signaler'] + 1;
+							/* Mise à jour du nb de signalement */
+							if($cManager = $this->managers->getManagerOf('comment')->signalerComment($idComment[1], $nb))
+								$this->page->addVar('success', 'Signalement pris en compte');
+							
+						}
+						
+					}
 				}
 				else
 				{
-					$error = $comment->getErreurs();
-					$this->page->addVar('error', $error[0]);
+					$this->page->addVar('error', $this->managers->getManagerOf('Billet')->getManagerError());
 				}
 			}
-			
-			/* On regarde si un signalement est effectué */
-			if($HTTPRequest->postExists('btSignaler'))
-			{
-				$idComment = explode('_', $HTTPRequest->postData('btSignaler'));
-				/* On récupére le commentaire */
-				if($cManager = $this->managers->getManagerOf('comment')->getComment($idComment[1], 'once'))
-				{
-					$nb = $cManager['signaler'] + 1;
-					/* Mise à jour du nb de signalement */
-					if($cManager = $this->managers->getManagerOf('comment')->signalerComment($idComment[1], $nb))
-						$this->page->addVar('success', 'Signalement pris en compte');
-					
-				}
-				
-			}
-			
 		}
 	}
