@@ -18,34 +18,41 @@
 		{
 			if($this->app->user()->isAuthentificated())
 			{
-				$this->page->addVar('title', 'Blog - Admin');
-				/* On regarde si des commentaires sont signalés, si c'est le cas on les affiche */
-				$cManager = $this->managers->getManagerOf('Comment')->getCommentReport();
-				$this->page->addVar('report', $cManager);
-				
-				/* On regarde si des données sont présentes dans l'url */
-				if($HTTPRequest->getExists('delComment') AND !empty($HTTPRequest->getData('delComment'))) // Demande de suppression d'un commentaire //
+				if($this->app->user()->getUserLevel() > 2)
 				{
-					$e = $this->managers->getManagerOf('Comment')->delComment($HTTPRequest->getData('delComment'));
-					if($e)
+					$this->page->addVar('title', 'Blog - Admin');
+					/* On regarde si des commentaires sont signalés, si c'est le cas on les affiche */
+					$cManager = $this->managers->getManagerOf('Comment')->getCommentReport();
+					$this->page->addVar('report', $cManager);
+					
+					/* On regarde si des données sont présentes dans l'url */
+					if($HTTPRequest->getExists('delComment') AND !empty($HTTPRequest->getData('delComment'))) // Demande de suppression d'un commentaire //
 					{
-						$this->app->HTTPResponse()->redirect('/openclassroom/Blog/Web/admin/');
+						$e = $this->managers->getManagerOf('Comment')->delComment($HTTPRequest->getData('delComment'));
+						if($e)
+						{
+							$this->app->HTTPResponse()->redirect('/openclassroom/Blog/Web/admin/');
+						}
+						else // L'id est invalid
+						{
+							$this->page->addVar('error', 'Id invalid.');
+						}
 					}
-					else // L'id est invalid
+					if($HTTPRequest->getExists('delCommentAndReport') AND !empty($HTTPRequest->getData('delCommentAndReport')))
 					{
-						$this->page->addVar('error', 'Id invalid.');
+						$tab = [$HTTPRequest->getData('delCommentAndReport'), $HTTPRequest->getData('email')];
+						$e = $this->managers->getManagerOf('Comment')->delComment($tab, true);
+						if($e)
+						{
+							$this->app->HTTPResponse()->redirect('/openclassroom/Blog/Web/admin/');
+						}
+						else
+							$this->page->addVar('error', $e);
 					}
 				}
-				if($HTTPRequest->getExists('delCommentAndReport') AND !empty($HTTPRequest->getData('delCommentAndReport')))
+				else
 				{
-					$tab = [$HTTPRequest->getData('delCommentAndReport'), $HTTPRequest->getData('email')];
-					$e = $this->managers->getManagerOf('Comment')->delComment($tab, true);
-					if($e)
-					{
-						$this->app->HTTPResponse()->redirect('/openclassroom/Blog/Web/admin/');
-					}
-					else
-						$this->page->addVar('error', $e);
+					$this->app->HTTPResponse()->redirect('../');
 				}
 			}
 			else
@@ -84,20 +91,27 @@
 		{
 			if($this->app->user()->isAuthentificated())
 			{
-				$this->page->addVar('title', 'Blog - Supprimer');
-				if($HTTPRequest->getExists('id'))
+				if($this->app->user()->getUserLevel() > 2)
 				{
-					$billet = $this->managers->getManagerOf('Billet')->getBillet($HTTPRequest->getData('id'));
-					$this->page->addVar('billet', $billet);
-				}
-				
-				/* Si on trouve la confirmation on supprime le billet */
-				if($HTTPRequest->postExists('delBillet') AND $billet)
-				{
-					if($this->managers->getManagerOf('Billet')->delBillet($billet->getId()))
+					$this->page->addVar('title', 'Blog - Supprimer');
+					if($HTTPRequest->getExists('id'))
 					{
-						$this->page->addVar('success', 'Le billet a bien été supprimé');
+						$billet = $this->managers->getManagerOf('Billet')->getBillet($HTTPRequest->getData('id'));
+						$this->page->addVar('billet', $billet);
 					}
+					
+					/* Si on trouve la confirmation on supprime le billet */
+					if($HTTPRequest->postExists('delBillet') AND $billet)
+					{
+						if($this->managers->getManagerOf('Billet')->delBillet($billet->getId()))
+						{
+							$this->page->addVar('success', 'Le billet a bien été supprimé');
+						}
+					}
+				}
+				else
+				{
+					$this->app->HTTPResponse()->redirect('../');
 				}
 			}
 			else
@@ -110,42 +124,55 @@
 		{
 			if($this->app->user()->isAuthentificated())
 			{
-				$this->page->addVar('title', 'Blog - Modifier');
-				
-				/* On regarde si le billet à modifier a été séléctionné */
-				if($HTTPRequest->getExists('id'))
+				if($this->app->user()->getUserLevel() > 2)
 				{
-					$billet = $this->managers->getManagerOf('Billet')->getBillet($HTTPRequest->getData('id'));
-					$this->page->addVar('billet', $billet);
-				}
-				
-				if($HTTPRequest->postExists('bTitle') AND !empty($HTTPRequest->postData('bTitle')))
-				{
-					/* On accède au manager des Billets */
-					$bManager = $this->managers->getManagerOf('Billet');
-					$billet = new Billet([
-					'id' => $billet->getId(),
-					'titre' => $HTTPRequest->postData('bTitle'),
-					'contenu' => $HTTPRequest->postData('bDesc'),
-					'datePub' => $billet->getDatePub()
-					]);
-					/* On vérifie si il y a des erreurs */
-					if(!$billet->getErreurs())
+					$this->page->addVar('title', 'Blog - Modifier');
+					
+					/* On regarde si le billet à modifier a été séléctionné */
+					if($HTTPRequest->getExists('id'))
 					{
-						$e = $bManager->updBillet($billet);
-						if($e)
-						{
-							$this->page->addVar('success', true);
-						}
-						else
-						{
-							$this->page->addVar('error', $bManager->getManagerError());
-						}
+						$billet = $this->managers->getManagerOf('Billet')->getBillet($HTTPRequest->getData('id'));
+						$this->page->addVar('billet', $billet);
 					}
 					else
 					{
-						$this->page->addVar('error', $billet->getErreurs());
+						$bManager = $this->managers->getManagerOf('Billet')->getBillet();
+						$this->page->addVar('title', 'Liste des Billets');
+						$this->page->addVar('listBillet', $bManager);
 					}
+					
+					if($HTTPRequest->postExists('bTitle') AND !empty($HTTPRequest->postData('bTitle')))
+					{
+						/* On accède au manager des Billets */
+						$bManager = $this->managers->getManagerOf('Billet');
+						$billet = new Billet([
+						'id' => $billet->getId(),
+						'titre' => htmlspecialchars($HTTPRequest->postData('bTitle')),
+						'contenu' => $HTTPRequest->postData('bDesc'),
+						'datePub' => $billet->getDatePub()
+						]);
+						/* On vérifie si il y a des erreurs */
+						if(!$billet->getErreurs())
+						{
+							$e = $bManager->updBillet($billet);
+							if($e)
+							{
+								$this->app->HTTPResponse()->redirect('upd-'.$billet->getId());
+							}
+							else
+							{
+								$this->page->addVar('error', $bManager->getManagerError());
+							}
+						}
+						else
+						{
+							$this->page->addVar('error', $billet->getErreurs());
+						}
+					}
+				}
+				else
+				{
+					$this->app->HTTPResponse()->redirect('../');
 				}
 			}
 			else
@@ -159,34 +186,41 @@
 		{
 			if($this->app->user()->isAuthentificated())
 			{
-				$this->page->addVar('title', 'Blog - Ajouter');
-				
-				/* On vérifie la page pour voir si il y a des données POST qui ont été transmise (données d'ajout du billet) */
-				if($HTTPRequest->postExists('bTitle') AND !empty($HTTPRequest->postData('bTitle')))
+				if($this->app->user()->getUserLevel() > 2)
 				{
-					/* On accède au manager des Billets */
-					$bManager = $this->managers->getManagerOf('Billet');
-					$billet = new Billet([
-					'titre' => $HTTPRequest->postData('bTitle'),
-					'contenu' => $HTTPRequest->postData('bDesc')
-					]);
-					/* On vérifie si il y a des erreurs */
-					if(!$billet->getErreurs())
+					$this->page->addVar('title', 'Blog - Ajouter');
+					
+					/* On vérifie la page pour voir si il y a des données POST qui ont été transmise (données d'ajout du billet) */
+					if($HTTPRequest->postExists('bTitle') AND !empty($HTTPRequest->postData('bTitle')))
 					{
-						$e = $bManager->addBillet($billet);
-						if($e)
+						/* On accède au manager des Billets */
+						$bManager = $this->managers->getManagerOf('Billet');
+						$billet = new Billet([
+						'titre' => htmlspecialchars($HTTPRequest->postData('bTitle')),
+						'contenu' => $HTTPRequest->postData('bDesc')
+						]);
+						/* On vérifie si il y a des erreurs */
+						if(!$billet->getErreurs())
 						{
-							$this->page->addVar('success', true);
+							$e = $bManager->addBillet($billet);
+							if($e)
+							{
+								$this->page->addVar('success', true);
+							}
+							else
+							{
+								$this->page->addVar('error', $bManager->getManagerError());
+							}
 						}
 						else
 						{
-							$this->page->addVar('error', $bManager->getManagerError());
+							$this->page->addVar('error', $billet->getErreurs());
 						}
 					}
-					else
-					{
-						$this->page->addVar('error', $billet->getErreurs());
-					}
+				}
+				else
+				{
+					$this->app->HTTPResponse()->redirect('../');
 				}
 			}
 			else
