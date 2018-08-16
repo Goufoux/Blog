@@ -22,6 +22,10 @@ body, html
 	text-align: center;
 	padding-bottom: 1%;
 }
+.container-fluid a
+{
+	text-decoration: none;
+}
 .container-fluid h3, .container-fluid h4
 {
 	text-align: center;
@@ -49,6 +53,46 @@ body, html
 .container-fluid nav a
 {
 	text-decoration: none;
+}
+/* Affichage des billets */
+.billet
+{
+	margin: 5% auto;
+	background-color: rgb(33, 37, 41);
+	border-radius: 4px;
+	color: white;
+}
+.billet .content
+{
+	margin: 2% auto;
+}
+.billet ul
+{
+	text-align: right;
+	list-style-type: none;
+	color: white;
+}
+/* Commentaire */
+.boxComment
+{
+	text-align: center;
+}
+.comment
+{
+	padding: 2%;
+	margin: 1% auto;
+	background-color: rgb(33, 37, 41);
+	border-radius: 4px;
+	color: white;
+}
+.comment p 
+{
+	margin: 2% auto;
+}
+.comment ul
+{
+	text-align: right;
+	list-style-type: none;
 }
 .error
 {
