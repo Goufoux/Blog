@@ -58,7 +58,8 @@
 		<div class="container-fluid">
 			<nav class="col-12 col-sm-4">
 				<h3 class="col-12"> Administration </h3>
-					<a href="add"><button id="addPage"> Ajouter </button></a>
+					<a href="add"><button id="addPage"> Ajouter un billet </button></a>
+					<a href="upd"><button id="updPage"> Modifier un billet </button></a>
 			</nav>
 			<div class="col-12 col-sm-12 col-md-12 col-lg-12">
 				<p>
