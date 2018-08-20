@@ -54,15 +54,14 @@
 							{
 								foreach($listComment as $comment)
 								{
-									$date = getDate($comment->getDatePub());
 									?>
 										<article class="col-6">
 											<p>
 												<?php echo nl2br($comment->getContenu()); ?>
 											</p>
 											<ul>
-												<li> Par <?php echo $comment->getName(); ?> </li>
-												<li> Le <?php echo $date['mday'] . '/' . $date['mon'] . '/' . $date['year'] . ' à ' . $date['hours'] . 'h:' . $date['minutes'] . 'min'; ?> </li>
+												<li> Par <?php echo $comment->getPseudo(); ?> </li>
+												<li> Le <?php echo gmdate('d/m/Y à H:i', $comment->getDatePub()); ?> </li>
 											</li>
 											<?php
 												if(!empty($_SESSION['auth']))
