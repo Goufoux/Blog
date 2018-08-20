@@ -73,8 +73,8 @@
 					if($HTTPRequest->postExists('cDesc'))
 					{
 						$comment = new Comment([
-							'name' => $_SESSION['membre']->getPseudo(),
-							'contenu' => htmlspecialchars($HTTPRequest->postData('cDesc')),
+							'idUtilisateur' => $_SESSION['membre']->getId(),
+							'contenu' => $HTTPRequest->postData('cDesc'),
 							'idBillet' => $HTTPRequest->postData('bId')
 						]);
 						/*  */
@@ -86,7 +86,7 @@
 								$this->app->HTTPResponse()->redirect('/openclassroom/Blog/Web/billet-'.$comment->getIdBillet());
 							}
 							else
-								$this->page->addVar('error', $cManager->getError());
+								$this->page->addVar('error', 'coucou');
 						}
 						else
 						{
