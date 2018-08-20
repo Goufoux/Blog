@@ -11,15 +11,9 @@
 	
 	class Membre extends Entity
 	{
-		protected $id;
 		protected $pseudo;
 		protected $pass;
 		protected $accessLevel;
-		
-		public function getId()
-		{
-			return $this->id;
-		}
 		
 		public function getPseudo()
 		{
