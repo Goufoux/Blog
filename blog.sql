@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 15 août 2018 à 11:07
+-- Généré le :  lun. 20 août 2018 à 06:27
 -- Version du serveur :  5.7.21
 -- Version de PHP :  5.6.35
 
@@ -36,7 +36,16 @@ CREATE TABLE IF NOT EXISTS `billet` (
   `datePub` int(11) NOT NULL,
   `dateMod` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `billet`
+--
+
+INSERT INTO `billet` (`id`, `titre`, `contenu`, `datePub`, `dateMod`) VALUES
+(15, 'C\'est moi !', '<p style=\"text-align: center;\">Test du blog pour la responsivit&eacute;Test du blog pour la responsivit&eacute;Test du blog pour la responsivit&eacute;Test du blog pour la responsivit&eacute;Test du blog pour la responsivit&eacute;Test du blog pour la responsivit&eacute;Test du blog pour la responsivit&eacute;</p>\r\n<p style=\"text-align: center;\">Test du blog pour la responsivit&eacute;Test du blog pour la responsivit&eacute;</p>\r\n<p style=\"text-align: center;\">Test du blog pour la responsivit&eacute;Test du blog pour la responsivit&eacute;Test du blog pour la responsivit&eacute;Test du blog pour la responsivit&eacute;Test du blog pour la responsivit&eacute;Test du blog pour la responsivit&eacute;Test du blog pour la responsivit&eacute;Test du blog pour la responsivit&eacute;Test du blog pour la responsivit&eacute;Test du blog pour la responsivit&eacute;Test du blog pour la responsivit&eacute;Test du blog pour la responsivit&eacute;Test du blog pour la responsivit&eacute;Test du blog pour la responsivit&eacute;Test du blog pour la responsivit&eacute;Test du blog pour la responsivit&eacute;Test du blog pour la responsivit&eacute;</p>', 1534342617, 1534423044),
+(16, 'Introduction', '<p>Bonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introduction</p>\r\n<p>Bonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introduction</p>\r\n<p>Bonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introductionBonjour &agrave; tous, voici l\'introduction</p>', 1534423286, 0),
+(17, 'Partie 1', '<p>ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</p>\r\n<p>&nbsp;</p>\r\n<p>ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</p>\r\n<p>&nbsp;</p>\r\n<p>dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</p>\r\n<p>&nbsp;</p>\r\n<p>dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</p>\r\n<p>&nbsp;</p>\r\n<p>dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</p>\r\n<p>&nbsp;</p>\r\n<p>ddddddddddddddddddddddddddddddddddddddd</p>\r\n<p>&nbsp;</p>\r\n<p>ddddddddddddddddddddddddddddddddddddd</p>\r\n<p>&nbsp;</p>\r\n<p>dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</p>', 1534423313, 1534423616);
 
 -- --------------------------------------------------------
 
@@ -49,25 +58,11 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(25) NOT NULL,
   `contenu` text NOT NULL,
-  `email` text NOT NULL,
-  `idAttach` int(11) NOT NULL,
+  `idBillet` int(11) NOT NULL,
   `datePub` int(11) NOT NULL,
   `signaler` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `report`
---
-
-DROP TABLE IF EXISTS `report`;
-CREATE TABLE IF NOT EXISTS `report` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -79,19 +74,18 @@ DROP TABLE IF EXISTS `utilisateur`;
 CREATE TABLE IF NOT EXISTS `utilisateur` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `pseudo` varchar(25) NOT NULL,
-  `email` text NOT NULL,
   `pass` text NOT NULL,
-  `dti` int(11) NOT NULL,
   `accessLevel` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `utilisateur`
 --
 
-INSERT INTO `utilisateur` (`id`, `pseudo`, `email`, `pass`, `dti`, `accessLevel`) VALUES
-(1, 'Quentin', 'deadworldcorp@gmail.com', '$2y$10$cacVNftBaDNhH1oZ6ucfWuPXaEJRP6Z.QXLhfrGNj8WDgd0GTplM.', 0, 5);
+INSERT INTO `utilisateur` (`id`, `pseudo`, `pass`, `accessLevel`) VALUES
+(1, 'Quentin', '$2y$10$cacVNftBaDNhH1oZ6ucfWuPXaEJRP6Z.QXLhfrGNj8WDgd0GTplM.', 5),
+(6, 'Goufoux', '$2y$10$gjBqzlTydyqAox51hORkIuD9t8JihBEEGF0NKrf5c1kJNv7QW9hDW', 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
