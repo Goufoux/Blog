@@ -6,15 +6,17 @@
 	
 	class Comment extends Entity
 	{
-		protected $name;
+		protected $idUtilisateur;
 		protected $contenu;
 		protected $datePub;
 		protected $idBillet;
 		protected $signaler;
 		
-		public function getName()
+		protected $pseudo;
+		
+		public function getIdUtilisateur()
 		{
-			return $this->name;
+			return $this->idUtilisateur;
 		}
 		
 		public function getContenu()
@@ -37,24 +39,14 @@
 			return $this->signaler;
 		}
 		
-		public function setName($name)
+		public function getPseudo()
 		{
-			if(!empty($name) AND is_string($name))
-			{
-				if(strlen($name) > 1)
-				{
-					if(strlen($name) <= 25)
-					{
-						$this->name = htmlspecialchars($name);
-					}
-					else
-						$this->erreurs[] = "Le name doit être inférieur ou égal à 25 caractères.";
-				}
-				else
-					$this->erreurs[] = "Le name doit être supérieur ou égal à 2 caractères.";
-			}
-			else
-				$this->erreurs[] = "Le name est invalide";
+			return $this->pseudo;
+		}
+		
+		public function setIdUtilisateur($idUtilisateur)
+		{
+			$this->idUtilisateur = $idUtilisateur;
 		}
 		
 		public function setContenu($contenu)
@@ -70,5 +62,10 @@
 		public function setIdBillet($id)
 		{
 			$this->idBillet = $id;
+		}
+		
+		public function setPseudo($pseudo)
+		{
+			$this->pseudo = $pseudo;
 		}
 	}
