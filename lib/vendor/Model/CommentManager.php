@@ -34,5 +34,8 @@
 			sinon $id = idComment;
 		*/
 		
-		abstract public function delComment($id, $report = false);
+		abstract public function delComment($id);
+		
+		abstract public function getCommentReport();
+		
 	}

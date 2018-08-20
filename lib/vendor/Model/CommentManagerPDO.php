@@ -10,12 +10,13 @@
 		
 		public function addComment(Comment $comment)
 		{
-			$act = getDate();
-			$req = $this->dao->prepare('INSERT INTO comment(name, contenu, idBillet, datePub) VALUES(:name, :contenu, :idBillet, :datePub)');
-			$req->bindValue(':name', $comment->getName(), \PDO::PARAM_STR);
+			$act = strtotime(gmdate('d-m-Y H:i:s'));
+			$req = $this->dao->prepare('INSERT INTO comment(idUtilisateur, contenu, idBillet, datePub, signaler) VALUES(:idUtilisateur, :contenu, :idBillet, :datePub, :signaler)');
+			$req->bindValue(':idUtilisateur', $comment->getIdUtilisateur(), \PDO::PARAM_INT);
 			$req->bindValue(':contenu', $comment->getContenu(), \PDO::PARAM_STR);
 			$req->bindValue(':idBillet', $comment->getIdBillet(), \PDO::PARAM_INT);
-			$req->bindValue(':datePub', $act[0], \PDO::PARAM_INT);
+			$req->bindValue(':datePub', $act, \PDO::PARAM_INT);
+			$req->bindValue(':signaler', 0, \PDO::PARAM_INT);
 			$req->execute();
 			return true;
 		}
@@ -24,7 +25,7 @@
 		{
 			if($module == 'list') // Liste des commentaires d'un billet
 			{
-				$req = $this->dao->prepare('SELECT * FROM comment WHERE idBillet = :idBillet ORDER BY datePub DESC');
+				$req = $this->dao->prepare('SELECT c.*, u.pseudo AS pseudo FROM utilisateur u INNER JOIN comment c ON c.idUtilisateur = u.id WHERE idBillet = :idBillet ORDER BY datePub DESC');
 				$req->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Comment');
 				$req->bindValue(':idBillet', $id, \PDO::PARAM_INT);
 				$req->execute();
@@ -76,36 +77,17 @@
 			}
 		}
 		
-		public function delComment($id, $report = false)
+		public function delComment($id)
 		{
-			if(!$report)
+			if((int)$id)
 			{
-				if((int)$id)
-				{
-					$del = $this->dao->prepare('DELETE FROM comment WHERE id = :id');
-					$del->bindValue(':id', $id, \PDO::PARAM_INT);
-					$del->execute();
-					return true;
-				}
-				else
-					return false;
+				$del = $this->dao->prepare('DELETE FROM comment WHERE id = :id');
+				$del->bindValue(':id', $id, \PDO::PARAM_INT);
+				$del->execute();
+				return true;
 			}
 			else
-			{
-				if((int)$id[0])
-				{
-					$req = $this->dao->prepare('INSERT INTO report(email) VALUES(:email)');
-					$req->bindValue(':email', $id[1], \PDO::PARAM_STR);
-					$req->execute();
-					
-					$del = $this->dao->prepare('DELETE FROM comment WHERE id = :id');
-					$del->bindValue(':id', $id[0], \PDO::PARAM_INT);
-					$del->execute();
-					return $id;
-				}
-				else
-					return false;
-			}
+				return false;
 		}
 		
 		/* Getters */

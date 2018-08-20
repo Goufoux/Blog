@@ -17,5 +17,5 @@
 		
 		abstract public function delBillet($id);
 		
-		abstract public function getBillet($id = false);
+		abstract public function getBillet($id = false, $nb = '');
 	}
