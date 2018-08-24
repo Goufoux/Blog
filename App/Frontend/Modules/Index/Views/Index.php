@@ -1,4 +1,6 @@
-<h1 class="col-12"> Dernière Publication </h1>
+<header>
+	<h2 class="col-12"> Dernière Publication </h2>
+</header>
 <?php
 	if(!empty($billet))
 	{
