@@ -1,6 +1,7 @@
 <!-- Inclusion du plugin TinyMCE -->
 <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=f4dp9wawlw7lf2eguscb58wx6b7v18y76xypimmcsb77gewa"></script>
 <script src="../js/admin/index.js"></script>
+<link rel="stylesheet" href="../css/backend/list.css" />
 <?php
 	if(!empty($billet))
 	{
@@ -18,13 +19,11 @@
 	{
 		foreach($listBillet as $billet)
 		{
-			$date = getDate($billet->getDatePub());
 			?>
-				<link rel="stylesheet" href="../css/backend/list.css" />
-				<a href="upd-<?php echo $billet->getId(); ?>"> <article class="billet col-6 col-sm-6 col-md-5 col-lg-4">
+				<a href="upd-<?php echo $billet->getId(); ?>"> <article class="prevBillet col-6 col-sm-6 col-md-4 col-lg-3">
 					<h3> <?php echo $billet->getTitre(); ?> </h3>
 					<ul class="col-12">
-						<li> Publié le: <?php echo $date['mday'] . '/' . $date['mon'] . '/' . $date['year']; ?> </li>
+						<li> Publié le: <?php echo date('d-m-Y', $billet->getDatePub()); ?> </li>
 					</ul>
 				</article> </a>
 			<?php
