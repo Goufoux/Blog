@@ -7,6 +7,8 @@
 	*/
 	namespace Core;
 	
+	use \Core\Style;
+	
 	class Page extends ApplicationComponent
 	{
 		protected $contentFile;
@@ -30,6 +32,7 @@
 			}
 			
 			$user = $this->app->user();
+			$style = new Style();
 			extract($this->vars);
 			ob_start();
 				require $this->contentFile;
