@@ -6,7 +6,6 @@
 	{
 		foreach($billet as $bat)
 		{
-			$date = getDate($bat->getDatePub());
 			?>
 				<article class="col-12 col-md-8 col-sm-12 billet">
 					<h3> <a href="billet-<?php echo $bat->getId(); ?>"> <?php echo $bat->getTitre(); ?> </a> </h3>
@@ -14,14 +13,12 @@
 						<?php echo nl2br($bat->getContenu()); ?>
 					</div>
 					<ul>
-						<li> Publié le: <?php echo $date['mday'] . "/" . $date['mon'] . "/" . $date['year']; ?> </li>
+						<li> Publié le: <?php echo date('d-m-Y', $bat->getDatePub()); ?> </li>
 						<?php
 							if($bat->getDateMod())
 							{
-								$act = getDate();
-								$diff = getDate($act[0] - $bat->getDateMod());
 								?>
-									<li> Modifié il y a : <?php echo $diff['hours'] . ':' . $diff['minutes'] . ':' . $diff['seconds']; ?> </li>
+									<li> Modifié il y a : <?php echo $style->styleDate($bat->getDateMod()); ?> </li>
 								<?php
 							}
 						?>

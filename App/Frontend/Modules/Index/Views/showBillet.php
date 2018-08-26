@@ -18,17 +18,12 @@
 					<?php echo nl2br($billet->getContenu()); ?>
 				</div>
 				<ul>
-					<?php
-						$date = getDate($billet->getDatePub());
-					?>
-					<li> Publié le: <?php echo $date['mday'] . "/" . $date['mon'] . "/" . $date['year']; ?> </li>
+					<li> Publié le: <?php echo date('d-m-Y', $billet->getDatePub()); ?> </li>
 						<?php
 							if($billet->getDateMod())
 							{
-								$act = getDate();
-								$diff = getDate($act[0] - $billet->getDateMod());
 								?>
-									<li> Modifié il y a : <?php echo $diff['hours'] . ':' . $diff['minutes'] . ':' . $diff['seconds']; ?> </li>
+									<li> Modifié il y a : <?php echo $style->styleDate($billet->getDatePub()); ?> </li>
 								<?php
 							}
 						?>
