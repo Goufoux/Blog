@@ -2,7 +2,7 @@
 <html lang="fr">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="../css/bootstrap.min.css" />
 		<link rel="stylesheet" href="../css/backend/index.css" />
 		<link rel="stylesheet" media="screen and (min-width: 768px)" href="../css/backend/md.css" />
@@ -56,7 +56,7 @@
 		</nav>
 		<div class="bloc"></div>
 		<div class="container-fluid">
-			<nav class="col-12 col-sm-4">
+			<nav class="col-12 col-sm-12 col-lg-12">
 				<h3 class="col-12"> Administration </h3>
 					<a href="add"><button id="addPage"> Ajouter un billet </button></a>
 					<a href="upd"><button id="updPage"> Modifier un billet </button></a>
