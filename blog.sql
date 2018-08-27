@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 27 août 2018 à 09:36
+-- Généré le :  lun. 27 août 2018 à 09:40
 -- Version du serveur :  5.7.21
 -- Version de PHP :  5.6.35
 
@@ -65,7 +65,7 @@ DROP TABLE IF EXISTS `utilisateur`;
 CREATE TABLE IF NOT EXISTS `utilisateur` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `pseudo` varchar(25) NOT NULL,
-  `pass` text NOT NULL,
+  `pass` varchar(60) NOT NULL,
   `accessLevel` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
