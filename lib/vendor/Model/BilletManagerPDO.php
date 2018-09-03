@@ -79,12 +79,11 @@
 		
 		public function updBillet(Billet $billet)
 		{
-			$act = getDate();
 			$req = $this->dao->prepare('UPDATE billet SET titre = :titre, contenu = :contenu, datePub = :datePub, dateMod = :dateMod WHERE id = :id');
 			$req->bindValue(':titre', $billet->getTitre(), \PDO::PARAM_STR);
 			$req->bindValue(':contenu', $billet->getContenu(), \PDO::PARAM_STR);
 			$req->bindValue(':datePub', $billet->getDatePub(), \PDO::PARAM_INT);
-			$req->bindValue(':dateMod', $act[0], \PDO::PARAM_STR);
+			$req->bindValue(':dateMod', time(), \PDO::PARAM_STR);
 			$req->bindValue(':id', $billet->getId(), \PDO::PARAM_INT);
 			$req->execute();
 			return true;
@@ -92,14 +91,13 @@
 		
 		public function addBillet(Billet $billet)
 		{
-			$act = getDate(); // Date actuelle pour la date de publication du billet
 			if(!$this->existTitle($billet->getTitre()))
 			{
 				/* On prépare l'insertion en bdd */
 				$req = $this->dao->prepare('INSERT INTO billet(titre, contenu, datePub, dateMod) VALUES(:titre, :contenu, :datePub, :dateMod)');
 				$req->bindValue(':titre', $billet->getTitre(), \PDO::PARAM_STR);
 				$req->bindValue(':contenu', $billet->getContenu(), \PDO::PARAM_STR);
-				$req->bindValue(':datePub', $act[0], \PDO::PARAM_INT);
+				$req->bindValue(':datePub', time(), \PDO::PARAM_INT);
 				$req->bindValue(':dateMod', '0', \PDO::PARAM_STR);
 				$req->execute();
 				return true;

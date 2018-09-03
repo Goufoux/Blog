@@ -10,12 +10,11 @@
 		
 		public function addComment(Comment $comment)
 		{
-			$act = strtotime(gmdate('d-m-Y H:i:s'));
 			$req = $this->dao->prepare('INSERT INTO comment(idUtilisateur, contenu, idBillet, datePub, signaler) VALUES(:idUtilisateur, :contenu, :idBillet, :datePub, :signaler)');
 			$req->bindValue(':idUtilisateur', $comment->getIdUtilisateur(), \PDO::PARAM_INT);
 			$req->bindValue(':contenu', $comment->getContenu(), \PDO::PARAM_STR);
 			$req->bindValue(':idBillet', $comment->getIdBillet(), \PDO::PARAM_INT);
-			$req->bindValue(':datePub', $act, \PDO::PARAM_INT);
+			$req->bindValue(':datePub', time(), \PDO::PARAM_INT);
 			$req->bindValue(':signaler', 0, \PDO::PARAM_INT);
 			$req->execute();
 			return true;

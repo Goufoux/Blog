@@ -56,7 +56,7 @@
 											</p>
 											<ul>
 												<li> Par <?php echo $comment->getPseudo(); ?> </li>
-												<li> Le <?php echo gmdate('d/m/Y à H:i', $comment->getDatePub()); ?> </li>
+												<li> Le <?php echo date('d/m/Y à H:i', $comment->getDatePub()); ?> </li>
 											</li>
 											<?php
 												if(!empty($_SESSION['auth']))
